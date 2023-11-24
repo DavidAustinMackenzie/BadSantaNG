@@ -1,25 +1,25 @@
-<form>
-  <div class="form-group row">
-    <div class="col-md-4 mb-3">
-      <label for="total">Number of people</label>
-      <input type="text" class="form-control" id="total" placeholder="Number of people">
-    </div>
-    </div>
+<div class="container">
+  <form>
     <div class="form-group row">
       <div class="col-md-4 mb-3">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Name">
+        <button (click)="onNewList()"  class="btn btn-danger">New List</button>
       </div>
       <div class="col-md-4 mb-3">
-        <label for="place">Place</label>
-        <div class="draw-number">
-          <input type="text" class="form-control" id="place" placeholder="Place Number" value="{{random}}" readonly>
+        <label for="total">Total number of people</label>
+        <input type="number" class="form-control" value="{{people}}" />
+      </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-4 mb-3">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Name" value="{{name}}">
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="place-number" (click)="onGenerateNumber()"  (mousedown)="onMousedown()" 
+          (mouseup)="onMouseup()" [class.clicked]="clicked">
+            {{place}}
+          </div>
         </div>
       </div>
-    </div>
-</form>
-<p>
-  <button (click)="onGenerateNumber()" class="btn btn-primary">Generate</button>
-  <button type="submit" class="btn btn-primary">Save</button>
-  <button type="submit" class="btn btn-primary">New List</button>
-</p>
+  </form>  
+</div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 @Component({
   selector: 'app-root',
@@ -18,3 +19,4 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
   title = 'BadSantaNG';
 }
+
