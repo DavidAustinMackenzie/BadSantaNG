@@ -21,13 +21,20 @@ export class HomeComponent
   people = 10;
 
   onGenerateNumber() {
-    this.place = Math.floor((Math.random() * 10) + 1).toString();
-    //this.place = this.uniqueNumber(this.people)?.toString()!;
-    var badSanta = new BadSanta();
-    badSanta.id = 1;
-    badSanta.name = this.name;
-    badSanta.place = parseInt(this.place);
-    this.badSantas.push(badSanta);
+    //this.place = Math.floor((Math.random() * 10) + 1).toString();
+    if(this.numbers.length < this.people)
+    {
+      const randomNumber = this.uniqueNumber(this.people);
+      console.log(randomNumber);
+      console.log(this.numbers);
+      this.place = randomNumber?.toString()!;
+  
+      var badSanta = new BadSanta();
+      badSanta.id = 1;
+      badSanta.name = this.name;
+      badSanta.place = parseInt(this.place);
+      this.badSantas.push(badSanta);
+    }
   }
 
   onMousedown() {
@@ -52,17 +59,14 @@ export class HomeComponent
 
   uniqueNumber = (maxVal:number) => 
   {
-    var number = Math.floor((Math.random() * maxVal) + 1);
-    if (!this.numbers.includes(number.toString())) 
+    var number = Math.floor((Math.random() * maxVal) + 1).toString();
+    if (!this.numbers.includes(number)) 
     {
-       this.numbers.push(number.toString());
-       return number;
-    } 
-    else if (this.numbers.length - 1 !== maxVal) 
-    {
-       this.uniqueNumber(maxVal);
+       this.numbers.push(number);
     }
- }
+     
+    return number;
+  }
 }
 
 
