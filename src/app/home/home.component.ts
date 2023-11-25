@@ -12,28 +12,42 @@ import { BadSanta } from '../models/bad-santa';
 export class HomeComponent 
 {
   id = 1;
-  name = "";
+  name: string = "";
   place = '?';
   clicked = false;
   count = 1;
-  badSantas: any[] = [];
+  badSantas: BadSanta[] = [];
   numbers: string[] = [];
   people = 10;
+  errorMessage = "";
 
   onGenerateNumber() {
-    //this.place = Math.floor((Math.random() * 10) + 1).toString();
     if(this.numbers.length < this.people)
     {
-      const randomNumber = this.uniqueNumber(this.people);
+      var randomNumber = this.getRandomNumber(this.people);
+      if(this.checkRandomNumberExists(randomNumber))
+      {
+        do{
+          randomNumber = this.getRandomNumber(this.people);
+        }while(this.checkRandomNumberExists(randomNumber))
+      }
+      
       console.log(randomNumber);
       console.log(this.numbers);
+      this.numbers.push(randomNumber);
       this.place = randomNumber?.toString()!;
   
       var badSanta = new BadSanta();
-      badSanta.id = 1;
+      badSanta.id = this.numbers.length;
       badSanta.name = this.name;
       badSanta.place = parseInt(this.place);
       this.badSantas.push(badSanta);
+      console.log(this.badSantas);
+    }
+    else
+    {
+      this.errorMessage = "Cannot generate anymore draw numbers";
+      console.log(this.numbers);
     }
   }
 
@@ -57,15 +71,33 @@ export class HomeComponent
     return this.badSantas;
   }
 
-  uniqueNumber = (maxVal:number) => 
+  getRandomNumber = (maxVal:number) => 
   {
     var number = Math.floor((Math.random() * maxVal) + 1).toString();
-    if (!this.numbers.includes(number)) 
-    {
-       this.numbers.push(number);
-    }
-     
+         
     return number;
+  }
+
+  checkRandomNumberExists(randomNumber:string)
+  {
+    if(this.numbers.includes(randomNumber))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  onNameKeyEvent(event: any) 
+  { 
+    this.name = event.target.value;
+  }
+
+  onPeopleKeyEvent(event: any) 
+  { 
+    this.people = parseInt(event.target.value);
   }
 }
 
